@@ -17,6 +17,14 @@ public class PersonServices {
         return person;
     }
 
+    public Person update(Person person) {
+        return person;
+    }
+
+    public void delete(String id) {
+
+    }
+
     public Person findById(String id) {
         Person person = new Person();
         person.setId(counter.incrementAndGet());
