@@ -1,0 +1,13 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: levi-config-server
+    cloud:
+      config:
+        server:
+          git:
+            uri: https://github.com/MateusLeviDev/levi-config-server.git
+            default-label: main
+            search-path:
+              - "greeting-service*"
