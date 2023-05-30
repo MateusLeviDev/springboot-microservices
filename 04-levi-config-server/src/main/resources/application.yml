@@ -3,11 +3,11 @@ server:
 spring:
   application:
     name: levi-config-server
-    cloud:
-      config:
-        server:
-          git:
-            uri: https://github.com/MateusLeviDev/levi-config-server.git
-            default-label: main
-            search-path:
-              - "greeting-service*"
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/MateusLeviDev/levi-config-server.git
+          default-label: main
+          search-paths:
+          - 'greeting-service'
