@@ -5,13 +5,13 @@ spring:
     name: greeting-service
   config:
     import:
-    - optional:configserver:http://localhost:8888/
+      - optional:configserver:http://localhost:8888/
 management:
   endpoints:
     web:
       exposure:
         include:
-        - '*'
+          - "*"
 greeting-service:
-  greeting: "Olá"
-  default-value: "Mundo"
+  greeting: Olá
+  default-value: Mundo
