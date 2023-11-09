@@ -2,18 +2,24 @@ package com.levi.java.backend.dto;
 
 import com.levi.java.backend.domain.User;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 public class UserDTO {
+    @NotBlank(message = "Name cannot be null")
     private String name;
+    @NotBlank(message = "Cpf cannot be null")
     private String cpf;
     private String address;
+    @NotBlank(message = "Email cannot be null")
     private String email;
     private String telephone;
     private LocalDateTime createdAt;

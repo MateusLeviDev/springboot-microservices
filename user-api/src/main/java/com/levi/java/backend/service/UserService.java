@@ -1,5 +1,6 @@
 package com.levi.java.backend.service;
 
+import com.levi.java.backend.converter.DTOConverter;
 import com.levi.java.backend.domain.User;
 import com.levi.java.backend.dto.UserDTO;
 import com.levi.java.backend.repository.UserRepository;
@@ -33,7 +34,7 @@ public class UserService {
     public UserDTO save(UserDTO userDTO) {
         userDTO.setCreatedAt(LocalDateTime.now());
         User savedUser = repository.save(User.convert(userDTO));
-        return UserDTO.convert(savedUser);
+        return DTOConverter.convert(savedUser);
     }
 
     public void delete(Long userId) {
