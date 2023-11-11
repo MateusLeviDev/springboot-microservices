@@ -1,6 +1,5 @@
 package com.levi.java.backend.domain;
 
-import com.levi.java.backend.dto.UserDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,7 +12,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
+@Entity(name = "user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,14 +29,4 @@ public class User {
     @Column(name = "data_cadastro")
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    public static User convert(UserDTO userDTO) {
-        User user = new User();
-        user.setName(userDTO.getName());
-        user.setAddress(userDTO.getAddress());
-        user.setCpf(userDTO.getCpf());
-        user.setEmail(userDTO.getEmail());
-        user.setTelephone(userDTO.getTelephone());
-        user.setCreatedAt(userDTO.getCreatedAt());
-        return user;
-    }
 }

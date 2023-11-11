@@ -10,4 +10,5 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByCpf(String cpf);
     List<User> queryByNameLike(String name);
+    boolean findByEmail(String email);
 }
