@@ -27,6 +27,6 @@ public class User {
     @Column(name = "telefone")
     private String telephone;
     @Column(name = "data_cadastro")
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime createdAt;
 
 }
