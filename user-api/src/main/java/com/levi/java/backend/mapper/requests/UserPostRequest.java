@@ -1,4 +1,4 @@
-package com.levi.java.backend.requests;
+package com.levi.java.backend.mapper.requests;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
