@@ -5,11 +5,9 @@ import com.levi.java.backend.domain.Product;
 import com.levi.java.backend.mapper.ProductMapper;
 import com.levi.java.backend.mapper.requests.ProductPostRequest;
 import com.levi.java.backend.mapper.requests.ProductPutResponse;
-import com.levi.java.backend.mapper.responses.ProductResponseDto;
 import com.levi.java.backend.repository.ProductRepository;
 import com.levi.java.backend.service.ProductService;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -21,17 +19,17 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
     private ProductRepository repository;
-    private ModelMapper modelMapper;
 
     @Override
-    public Optional<?> save(ProductPostRequest productPostRequest) {
+    public Optional<Product> save(ProductPostRequest productPostRequest) {
         return Optional.of(repository.save(ProductMapper.INSTANCE.toMapper(productPostRequest)));
     }
 
     @Override
     public List<?> findAll() {
-        List<Product> products = repository.findAll();
-        return ProductMapper.INSTANCE.toMapperProductResponse(products);
+//        List<Product> products = repository.findAll();
+//        return ProductMapper.INSTANCE.toMapperProductResponse(products);
+        return null;
     }
 
     @Override
@@ -60,11 +58,11 @@ public class ProductServiceImpl implements ProductService {
     public void replace(ProductPutResponse productPutResponse) {
         Optional<?> optionalSavedProduct = this.findByIdOrThrowBadRequestException(productPutResponse.getId());
         Product savedProduct = (Product) optionalSavedProduct.orElseThrow(() -> new RuntimeException("Product not found"));
-        Product product = ProductMapper.INSTANCE.toMapper(productPutResponse);
+        //Product product = ProductMapper.INSTANCE.toMapper(productPutResponse);
 
-        product.setId(savedProduct.getId());
-        product.setName(productPutResponse.getName() != null ? productPutResponse.getName() : savedProduct.getName());
-        product.setPrice(productPutResponse.getPrice() != null ? productPutResponse.getPrice() : savedProduct.getPrice());
-        repository.save(product);
+//        product.setId(savedProduct.getId());
+//        product.setName(productPutResponse.getName() != null ? productPutResponse.getName() : savedProduct.getName());
+//        product.setPrice(productPutResponse.getPrice() != null ? productPutResponse.getPrice() : savedProduct.getPrice());
+//        repository.save(product);
     }
 }

@@ -4,10 +4,12 @@ import com.levi.java.backend.mapper.requests.ProductPostRequest;
 import com.levi.java.backend.mapper.requests.ProductPutResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public interface ProductService {
 
     List<?> findAll();
