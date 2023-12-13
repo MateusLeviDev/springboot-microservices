@@ -1,8 +1,26 @@
 package com.levi.java.backend.mapper.requests;
 
-import com.levi.java.backend.mapper.util.Product;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
-public class ProductPostRequest extends Product {
-
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class ProductPostRequest {
+    @NotBlank
+    private String name;
+    @NotNull
+    private Float price;
+    @NotBlank
+    private String description;
+    @NotBlank
+    private String productIdentifier;
+    @NotNull
+    private CategoryPostRequest category;
 }

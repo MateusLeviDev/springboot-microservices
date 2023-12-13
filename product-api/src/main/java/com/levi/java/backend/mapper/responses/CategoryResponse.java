@@ -1,18 +1,14 @@
-package com.levi.java.backend.mapper.requests;
+package com.levi.java.backend.mapper.responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotNull;
-
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CategoryPostRequest {
-    @NotNull
-    private long id;
+public class CategoryResponse {
     private String name;
 }

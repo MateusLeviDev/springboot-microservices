@@ -17,9 +17,13 @@ public class Product {
     @Column(name = "nome")
     private String name;
     @Column(name = "preco")
-    private float price;
+    private Float price;
     @Column(name = "descricao")
     private String description;
     @Column(name = "product_identifier")
     private String productIdentifier;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 }
