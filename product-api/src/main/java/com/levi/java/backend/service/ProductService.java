@@ -1,7 +1,8 @@
 package com.levi.java.backend.service;
 
+import com.levi.java.backend.domain.Product;
 import com.levi.java.backend.mapper.requests.ProductPostRequest;
-import com.levi.java.backend.mapper.requests.ProductPutResponse;
+import com.levi.java.backend.mapper.requests.ProductPutRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ public interface ProductService {
 
     Page<?> findAllPageable(Pageable pageable);
 
-    Optional<?> findByIdOrThrowBadRequestException(Long id);
+    Product findByIdOrThrowBadRequestException(Long id);
 
     Optional<?> findProductByIdentifier(String productIdentifier);
 
@@ -26,6 +27,6 @@ public interface ProductService {
 
     void delete(Long id);
 
-    void replace(ProductPutResponse productPutResponse);
+    void replace(ProductPutRequest productPutResponse);
 
 }

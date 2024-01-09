@@ -5,7 +5,7 @@ import com.levi.java.backend.domain.Category;
 import com.levi.java.backend.domain.Product;
 import com.levi.java.backend.mapper.ProductMapper;
 import com.levi.java.backend.mapper.requests.ProductPostRequest;
-import com.levi.java.backend.mapper.requests.ProductPutResponse;
+import com.levi.java.backend.mapper.requests.ProductPutRequest;
 import com.levi.java.backend.repository.CategoryRepository;
 import com.levi.java.backend.repository.ProductRepository;
 import com.levi.java.backend.service.ProductService;
@@ -29,6 +29,7 @@ public class ProductServiceImpl implements ProductService {
         Category categoryById = categoryRepository.findById(productPostRequest.getCategory().getId())
                 .orElseThrow(() -> new BusinessError("Category not found"));
         Product product = ProductMapper.INSTANCE.toProduct(productPostRequest, categoryById);
+
         return Optional.of(productRepository.save(product));
     }
 
@@ -38,8 +39,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Optional<?> findByIdOrThrowBadRequestException(Long id) {
-        return Optional.ofNullable(productRepository.findById(id).orElseThrow(() -> new BusinessError("Product not found")));
+    public Product findByIdOrThrowBadRequestException(Long id) {
+        return productRepository.findById(id).orElseThrow(() -> new BusinessError("Product not found"));
     }
 
     @Override
@@ -49,13 +50,14 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Optional<?> findProductByIdentifier(String productIdentifier) {
-//        Product byProductIdentifier = productRepository.findByProductIdentifier(productIdentifier);
-        return null;
+        return Optional.ofNullable(this.productRepository.findByProductIdentifier(productIdentifier))
+                .map(ProductMapper.INSTANCE::toProductResponse);
     }
 
     @Override
     public List<?> findProductByCategoryId(Long categoryId) {
         List<Product> products = this.productRepository.getProductByCategory(categoryId);
+
         return products.stream()
                 .map(product -> ProductMapper.INSTANCE.toProductResponseList(products))
                 .collect(Collectors.toList());
@@ -68,14 +70,17 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void replace(ProductPutResponse productPutResponse) {
-        Optional<?> optionalSavedProduct = this.findByIdOrThrowBadRequestException(productPutResponse.getId());
-        Product savedProduct = (Product) optionalSavedProduct.orElseThrow(() -> new RuntimeException("Product not found"));
-        //Product product = ProductMapper.INSTANCE.toMapper(productPutResponse);
+    public void replace(ProductPutRequest productPutRequest) {
+        Product savedProduct = this.findByIdOrThrowBadRequestException(productPutRequest.getId());
+        Product product = ProductMapper.INSTANCE.toProduct(productPutRequest);
 
-//        product.setId(savedProduct.getId());
-//        product.setName(productPutResponse.getName() != null ? productPutResponse.getName() : savedProduct.getName());
-//        product.setPrice(productPutResponse.getPrice() != null ? productPutResponse.getPrice() : savedProduct.getPrice());
-//        repository.save(product);
+        product.setId(savedProduct.getId());
+        product.setName(productPutRequest.getName().isBlank() ? savedProduct.getName() : productPutRequest.getName());
+        product.setPrice(productPutRequest.getPrice() != null ? productPutRequest.getPrice() : savedProduct.getPrice());
+        product.setDescription(productPutRequest.getDescription().isBlank() ? savedProduct.getDescription() : productPutRequest.getDescription());
+        product.setProductIdentifier(productPutRequest.getProductIdentifier().isBlank() ? savedProduct.getProductIdentifier() : productPutRequest.getProductIdentifier());
+        product.setCategory(productPutRequest.getCategory() != null ? productPutRequest.getCategory() : savedProduct.getCategory());
+
+        productRepository.save(product);
     }
 }
