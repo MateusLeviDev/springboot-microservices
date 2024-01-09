@@ -2,8 +2,8 @@ package com.levi.java.backend.mapper;
 
 import com.levi.java.backend.domain.Category;
 import com.levi.java.backend.domain.Product;
-import com.levi.java.backend.mapper.requests.CategoryPostRequest;
 import com.levi.java.backend.mapper.requests.ProductPostRequest;
+import com.levi.java.backend.mapper.requests.ProductPutRequest;
 import com.levi.java.backend.mapper.responses.ProductResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -16,6 +16,7 @@ import java.util.List;
 public abstract class ProductMapper {
     public static final ProductMapper INSTANCE = Mappers.getMapper(ProductMapper.class);
 
+    public abstract Product toProduct(ProductPutRequest productPutRequest);
     @Mappings({
             @Mapping(target = "id", ignore = true),
             @Mapping(target = "name", source = "productPostRequest.name"),
@@ -26,6 +27,8 @@ public abstract class ProductMapper {
     })
     public abstract Product toProduct(ProductPostRequest productPostRequest, Category categoryPostRequest);
 
+    //                              Responses
     public abstract List<ProductResponse> toProductResponseList(List<Product> products);
+    public abstract ProductResponse toProductResponse(Product products);
 
 }
