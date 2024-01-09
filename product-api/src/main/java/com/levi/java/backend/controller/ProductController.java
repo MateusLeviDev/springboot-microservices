@@ -1,6 +1,7 @@
 package com.levi.java.backend.controller;
 
 import com.levi.java.backend.mapper.requests.ProductPostRequest;
+import com.levi.java.backend.mapper.requests.ProductPutRequest;
 import com.levi.java.backend.service.impl.ProductServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
@@ -27,7 +28,7 @@ public class ProductController {
     }
 
     @GetMapping(path = "/all")
-    public ResponseEntity<List<?>> listAll() {
+    public ResponseEntity<List<?>> getAllProducts() {
         return ResponseEntity.ok(service.findAllNonPageable());
     }
 
@@ -39,5 +40,22 @@ public class ProductController {
     @GetMapping(path = "/category/{categoryId}")
     public ResponseEntity<?> getProductByCategory(@PathVariable Long categoryId) {
         return ResponseEntity.ok(service.findProductByCategoryId(categoryId));
+    }
+
+    @GetMapping(path = "/{productIdentifier}")
+    public ResponseEntity<?> getProductByIdentifier(@PathVariable String productIdentifier) {
+        return ResponseEntity.ok(service.findProductByIdentifier(productIdentifier));
+    }
+
+    @DeleteMapping(path = "/{productId}")
+    public ResponseEntity<?> deleteProduct(@PathVariable Long productId) {
+        service.delete(productId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping
+    public ResponseEntity<?> editProduct(@RequestBody ProductPutRequest productPutRequest) {
+        this.service.replace(productPutRequest);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
