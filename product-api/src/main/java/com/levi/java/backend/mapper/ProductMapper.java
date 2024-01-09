@@ -4,10 +4,10 @@ import com.levi.java.backend.domain.Category;
 import com.levi.java.backend.domain.Product;
 import com.levi.java.backend.mapper.requests.CategoryPostRequest;
 import com.levi.java.backend.mapper.requests.ProductPostRequest;
-import com.levi.java.backend.mapper.responses.CategoryResponse;
 import com.levi.java.backend.mapper.responses.ProductResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -16,10 +16,16 @@ import java.util.List;
 public abstract class ProductMapper {
     public static final ProductMapper INSTANCE = Mappers.getMapper(ProductMapper.class);
 
-    public abstract Product toMapper(ProductPostRequest productPostRequest);
-    public abstract Category toMapper(CategoryPostRequest categoryPostRequest);
+    @Mappings({
+            @Mapping(target = "id", ignore = true),
+            @Mapping(target = "name", source = "productPostRequest.name"),
+            @Mapping(target = "price", source = "productPostRequest.price"),
+            @Mapping(target = "description", source = "productPostRequest.description"),
+            @Mapping(target = "productIdentifier", source = "productPostRequest.productIdentifier"),
+            @Mapping(target = "category", source = "categoryPostRequest")
+    })
+    public abstract Product toProduct(ProductPostRequest productPostRequest, Category categoryPostRequest);
 
-    public abstract ProductResponse toMapperProductResponse(Product product);
-    public abstract List<CategoryResponse> toMapperCategoryResponse(List<Category> category);
+    public abstract List<ProductResponse> toProductResponseList(List<Product> products);
 
 }

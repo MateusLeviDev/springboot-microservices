@@ -2,15 +2,18 @@ package com.levi.java.backend.mapper;
 
 import com.levi.java.backend.domain.Category;
 import com.levi.java.backend.mapper.requests.CategoryPostRequest;
-import com.levi.java.backend.mapper.responses.CategoryResponse;
+import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
+import org.mapstruct.factory.Mappers;
 
+@Mapper(componentModel = "spring")
 public abstract class CategoryMapper {
-    public abstract Category toMapper(CategoryPostRequest categoryPostRequest);
+    public static final CategoryMapper INSTANCE = Mappers.getMapper(CategoryMapper.class);
 
-    public abstract Category toMapper(CategoryResponse categoryResponseDto);
-
-    @Mapping(source = "name", target = "name")
-    @Mapping(source = "id", target = "id")
-    public abstract CategoryResponse toMapperCategoryResponse(Category category);
+    @Mappings({
+            @Mapping(target = "id", ignore = true),
+            @Mapping(target = "name", source = "name")
+    })
+    public abstract Category toCategory(CategoryPostRequest categoryPostRequest);
 }
