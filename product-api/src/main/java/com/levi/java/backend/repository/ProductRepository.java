@@ -15,8 +15,10 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             + "from product p "
             + "join category c on p.category.id = c.id "
             + "where c.id = :categoryId ")
-    public List<Product> getProductByCategory(@Param("categoryId") Long categoryId);
+    List<Product> getProductByCategory(@Param("categoryId") Long categoryId);
 
-    public Product findByProductIdentifier(String productIdentifier);
+    Product findByProductIdentifier(String productIdentifier);
+
+    Product findByNameAndDescription(String name, String description);
 
 }

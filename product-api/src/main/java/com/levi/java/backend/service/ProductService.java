@@ -12,15 +12,17 @@ import java.util.Optional;
 @Service
 public interface ProductService {
 
-    List<?> findAll();
+    Optional<?> save(ProductPostRequest productPostRequest);
 
-    Optional<?> findByIdOrThrowBadRequestException(Long id);
+    List<?> findAllNonPageable();
 
     Page<?> findAllPageable(Pageable pageable);
 
+    Optional<?> findByIdOrThrowBadRequestException(Long id);
+
     Optional<?> findProductByIdentifier(String productIdentifier);
 
-    Optional<?> save(ProductPostRequest productPostRequest);
+    List<?> findProductByCategoryId(Long categoryId);
 
     void delete(Long id);
 
