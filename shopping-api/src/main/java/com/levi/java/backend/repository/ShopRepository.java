@@ -8,11 +8,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public interface ShopRepository extends JpaRepository<Shop, Long> {
+public interface ShopRepository extends JpaRepository<Shop, Long>, ReportRepository {
 
     List<Shop> findAllByUserIdentifier(String userIdentifier);
 
-    List<Shop> findAllByDateGreaterThanEquals(Float total);
+    List<Shop> findAllByTotalGreaterThan(Float total);
 
     List<Shop> findAllByDateGreaterThan(LocalDateTime date);
 

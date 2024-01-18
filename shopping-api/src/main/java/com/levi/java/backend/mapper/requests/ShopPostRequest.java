@@ -25,7 +25,6 @@ public class ShopPostRequest {
     private String userIdentifier;
     @NotNull
     private float total;
-    @NotNull
     private LocalDateTime date;
     @NotNull
     private List<Item> items;
