@@ -21,6 +21,9 @@
 
 `Eureka` acts as a centralized registration server, where each microservice registers itself with the server by providing its location (IP address and port). The architecture based on Eureka follows a client-server model, where each client service registers with the Eureka server when started and deregisters when terminated. Eureka maintains an up-to-date registry of all registered services and provides a query interface for clients to discover available services. It also offers features for fault tolerance and load balancing.
 
+- ![Screenshot from 2024-04-13 17-10-27](https://github.com/MateusLeviDev/springboot-microservices/assets/101754313/ae421bd9-ae46-4ee8-8b4e-f96e0179b263)
+
+
 ### MongoDB and MySQL
 
 The choice of database for each service is usually based on various factors, including business requirements, performance needs, scalability, and development team preferences.
@@ -43,3 +46,6 @@ Benefits:
 ### Synchronous Communication
 
 Synchronous communication is suitable when the ordering service requires an immediate response from the inventory service to complete the order operation. For example, the ordering service may need to check for sufficient inventory before confirming an order.
+
+- ![image](https://github.com/MateusLeviDev/springboot-microservices/assets/101754313/158d2912-1a43-4094-91cb-b9a3bca7bdea)
+
