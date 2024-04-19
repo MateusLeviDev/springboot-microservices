@@ -1,5 +1,3 @@
-# Microservices Documentation
-
 ![Last Commit](https://img.shields.io/github/last-commit/MateusLeviDev/lev-microservices)
 
 ## Screenshots
@@ -46,6 +44,9 @@ Benefits:
 ### Synchronous Communication
 
 Synchronous communication is suitable when the ordering service requires an immediate response from the inventory service to complete the order operation. For example, the ordering service may need to check for sufficient inventory before confirming an order.
+- Estabelencendo o processo de Inter Process Communication usando o `Spring Cloud OpenFeign`. Nesse contexto vamos estabelecer uma conexão entre o Order Service e o inventory service to check if the product is in stock or not. Basicamente será enviado uma request e aguarderemos uma response, com base no que será implementado no código (Order Service)
+[Spring Cloud OpenFeign Documentation](https://spring.io/projects/spring-cloud-openfeign)
+- declarative form of writing Java HTTP clients. openFeign acts like a wrapper.
 
 - ![image](https://github.com/MateusLeviDev/springboot-microservices/assets/101754313/158d2912-1a43-4094-91cb-b9a3bca7bdea)
 
