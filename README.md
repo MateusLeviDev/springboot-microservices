@@ -50,3 +50,4 @@ Synchronous communication is suitable when the ordering service requires an imme
 
 - ![image](https://github.com/MateusLeviDev/springboot-microservices/assets/101754313/158d2912-1a43-4094-91cb-b9a3bca7bdea)
 
+- poderia ser usado Mockito e WireMock na realização dos testes. usei WM, por que, basicamente, usando mockito não estaremos realizando uma chamada HTTP mas sim um mock. No WM mockamos a API itself e, dessa maneira, poderei testar HTTP interaction
