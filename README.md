@@ -51,3 +51,17 @@ Synchronous communication is suitable when the ordering service requires an imme
 - ![image](https://github.com/MateusLeviDev/springboot-microservices/assets/101754313/158d2912-1a43-4094-91cb-b9a3bca7bdea)
 
 - poderia ser usado Mockito e WireMock na realização dos testes. usei WM, por que, basicamente, usando mockito não estaremos realizando uma chamada HTTP mas sim um mock. No WM mockamos a API itself e, dessa maneira, poderei testar HTTP interaction
+
+### Gateway
+
+spring boot cloud gateway mvc as the api gateway library. If you want to use a 3rd party library you can use the tools like Kong or Nginx, if you want to have more control over the way things in the API Gateway layer then you can implement this using Spring Cloud Gateway
+
+- acts as an entry point for all the requests into our system
+- forward the request to the downstream microservice
+- Proxy reverso: para o solicitante, as respostas das requisições se apresentarão como do próprio serviço; no entanto, o API Gateway é que estará se passando de serviço realizando os redirecionamentos, tanto de requisição como de resposta.
+- é uma maneira de desacoplar a interface do cliente da sua implementação de back-end.
+- forward the request to the downstream microservice
+- sistemas distribuidos e arquiteturas de microserviço
+- estou usando um functional endpoint proggraming model: Spring WebFlux includes WebFlux.fn, a lightweight functional programming model in which functions are used to route and handle requests and contracts are designed for immutability. It is an alternative to the annotation-based programming model but otherwise runs on the same Reactive Core foundation. ou seja, com isso podemos usar os mesmo endpoints por um modelo de programação diferente
+- RequestPredicates impl various useful requests matching operations, such as matching based on path, HTTP method, etc.
+
