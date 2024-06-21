@@ -1,5 +1,6 @@
 package com.levi.microservices.product.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import com.levi.microservices.product.domain.Product;
 import com.levi.microservices.product.dto.ProductRequest;
 import com.levi.microservices.product.dto.ProductResponse;
@@ -42,7 +43,7 @@ public class ProductService {
 
     public Product getById(String id) {
         return productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Error"));
+                .orElseThrow(() -> new EntityNotFoundException("Unable to find Product with id " + id));
     }
 
     public void update(String id, ProductRequest productRequest) {
