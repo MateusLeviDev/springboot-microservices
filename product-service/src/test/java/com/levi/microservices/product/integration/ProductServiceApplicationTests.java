@@ -1,4 +1,4 @@
-package com.levi.microservices.product;
+package com.levi.microservices.product.integration;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -153,7 +153,7 @@ class ProductServiceApplicationTests {
                 .when()
                 .get("/api/product/" + deleteProductId)
                 .then()
-                .statusCode(500); //TODO: global exception handler
+                .statusCode(404);
     }
 
 }
