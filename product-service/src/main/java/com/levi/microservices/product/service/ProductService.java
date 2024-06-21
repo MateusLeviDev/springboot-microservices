@@ -39,4 +39,21 @@ public class ProductService {
                         product.getDescription(), product.getPrice()))
                 .toList();
     }
+
+    public Product getById(String id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Error"));
+    }
+
+    public void update(String id, ProductRequest productRequest) {
+        Product product = getById(id);
+        Product productUpdated = productRepository.save(product.updateModel(productRequest));
+        Product.from(productUpdated);
+    }
+
+
+    public void delete(String id) {
+        Product product = getById(id);
+        productRepository.delete(product);
+    }
 }
