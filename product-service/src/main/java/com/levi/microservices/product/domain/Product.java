@@ -1,5 +1,6 @@
 package com.levi.microservices.product.domain;
 
+import com.levi.microservices.product.dto.ProductRequest;
 import com.levi.microservices.product.dto.ProductResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,5 +32,18 @@ public class Product {
 
         return Optional.of(new ProductResponse(product.getId(), product.getName(),
                 product.getDescription(), product.getPrice()));
+    }
+
+    public Product updateModel(ProductRequest other) {
+        if (other.name() != null)
+            this.name = other.name();
+
+        if (other.description() != null)
+            this.description = other.description();
+
+        if (other.price() != null)
+            this.price = other.price();
+
+        return this;
     }
 }
