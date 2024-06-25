@@ -34,6 +34,7 @@ public class ProductService {
     }
 
     public List<ProductResponse> getAllProducts() {
+        log.info("Fetching all products");
         return this.productRepository.findAll()
                 .stream()
                 .map(product -> new ProductResponse(product.getId(), product.getName(),
@@ -42,19 +43,24 @@ public class ProductService {
     }
 
     public Product getById(String id) {
+        log.info("Fetching product with id: {}", id);
         return productRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Unable to find Product with id " + id));
     }
 
     public void update(String id, ProductRequest productRequest) {
+        log.info("Updating product with id: {}", id);
         Product product = getById(id);
         Product productUpdated = productRepository.save(product.updateModel(productRequest));
         Product.from(productUpdated);
+        log.info("Updated product: {}", productUpdated);
     }
 
 
     public void delete(String id) {
+        log.info("Deleting product with id: {}", id);
         Product product = getById(id);
         productRepository.delete(product);
+        log.info("Deleted product with id: {}", id);
     }
 }
