@@ -65,3 +65,36 @@ spring boot cloud gateway mvc as the api gateway library. If you want to use a 3
 - estou usando um functional endpoint proggraming model: Spring WebFlux includes WebFlux.fn, a lightweight functional programming model in which functions are used to route and handle requests and contracts are designed for immutability. It is an alternative to the annotation-based programming model but otherwise runs on the same Reactive Core foundation. ou seja, com isso podemos usar os mesmo endpoints por um modelo de programação diferente
 - RequestPredicates impl various useful requests matching operations, such as matching based on path, HTTP method, etc.
 
+### Circuit Breaker
+
+implementing circuit breaker pattern using libraries like Resilience 4J and spring cloud circuit beaker.
+
+a general best practice which is used in the real world distributed systems whenever our application are calling some remote services or remote APIs. funciona como um disjuntor que monitora a comunicação entre os serviços e interrompe temporariamente a comunicação com um serviço que está com problemas. is a resilience pattern. spring cloud circuit breaker to impl the resilience pattern, is like a lib that help us to integrate this 4J and the circuit breaker. provides us a abstraction
+
+
+- Open: This states indicates that the Circuit Breaker is open, and all the traffic going through the Circuit Breaker will be blocked.
+- Half-Open: In this state, the Circuit Breaker will start allowing gradually the traffic to the remote service R
+- Closed: In this state, the Circuit Breaker will allow all the requests to the service, which means that the service R is working well without any problems.
+
+- ![image](https://github.com/MateusLeviDev/springboot-microservices/assets/101754313/6389b1eb-23f6-46f2-a97d-c368235153e7)
+
+- ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/d5cbd8f8-cf76-4038-8eb0-8984076de443/606fa846-7500-4149-a030-a219197f60cb/Untitled.png)
+
+- siginifica que o nenhum dos circuit breakers foram registrados (por que ainda nao foi feita nenhuma request)
+- após fazer a request e receber um 503 Service Unavailable, please try again later, verificando novamente o endpoint do actuator health
+
+- ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/d5cbd8f8-cf76-4038-8eb0-8984076de443/2bf048ff-f8b6-4f68-8bea-f6f259233539/Untitled.png)
+
+- conforme configurado nas properties. foi feito um numero mínimo de 5 calls, após falhar tudo ela vai pro estado de half closed
+
+- ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/d5cbd8f8-cf76-4038-8eb0-8984076de443/5b7a6b96-5ed6-49a2-9d16-cda8fa19ecdb/Untitled.png)
+
+- após uma request bem sucedida
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/d5cbd8f8-cf76-4038-8eb0-8984076de443/2487ccca-1310-4e90-aeb7-54145fbb2a75/Untitled.png)
+
+
+To test the Circuit Breaker in the API Gateway, make sure that one of the services like Product, Order or Inventory Service is unavailable, and then call the corresponding service.
+You should see an error – Service Unavailable, please try again later with the status HTTP_503
+You can try the same thing also for the Order Service project, by stopping the Inventory Service.
+To test the Timeout and Retry, we can introduce a slight delay by adding something like Thread.sleep() to simulate latency for our requests and you can observe that Circuit Breaker will be activated also in these cases.
