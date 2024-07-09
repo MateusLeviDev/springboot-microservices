@@ -76,25 +76,28 @@ a general best practice which is used in the real world distributed systems when
 - Half-Open: In this state, the Circuit Breaker will start allowing gradually the traffic to the remote service R
 - Closed: In this state, the Circuit Breaker will allow all the requests to the service, which means that the service R is working well without any problems.
 
-- ![image](https://github.com/MateusLeviDev/springboot-microservices/assets/101754313/6389b1eb-23f6-46f2-a97d-c368235153e7)
+- ![Screenshot from 2024-06-24 20-27-52](https://github.com/MateusLeviDev/springboot-microservices/assets/101754313/01317a23-2672-4a73-843b-78bae7de4c6f)
 
-- ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/d5cbd8f8-cf76-4038-8eb0-8984076de443/606fa846-7500-4149-a030-a219197f60cb/Untitled.png)
+- ![Screenshot from 2024-06-24 20-28-01](https://github.com/MateusLeviDev/springboot-microservices/assets/101754313/e6d6c659-66c3-49a5-84c8-81ab921773ba)
 
 - siginifica que o nenhum dos circuit breakers foram registrados (por que ainda nao foi feita nenhuma request)
 - após fazer a request e receber um 503 Service Unavailable, please try again later, verificando novamente o endpoint do actuator health
 
-- ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/d5cbd8f8-cf76-4038-8eb0-8984076de443/2bf048ff-f8b6-4f68-8bea-f6f259233539/Untitled.png)
+- ![Screenshot from 2024-06-24 20-31-46](https://github.com/MateusLeviDev/springboot-microservices/assets/101754313/bdfecc76-49b4-4d99-8a78-e2496ebd5483)
 
 - conforme configurado nas properties. foi feito um numero mínimo de 5 calls, após falhar tudo ela vai pro estado de half closed
 
-- ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/d5cbd8f8-cf76-4038-8eb0-8984076de443/5b7a6b96-5ed6-49a2-9d16-cda8fa19ecdb/Untitled.png)
+- ![Screenshot from 2024-06-24 20-35-30](https://github.com/MateusLeviDev/springboot-microservices/assets/101754313/fd0cfe03-f030-4c7b-a52a-8ca9fd376b78)
 
 - após uma request bem sucedida
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/d5cbd8f8-cf76-4038-8eb0-8984076de443/2487ccca-1310-4e90-aeb7-54145fbb2a75/Untitled.png)
+- ![Screenshot from 2024-06-24 20-36-15](https://github.com/MateusLeviDev/springboot-microservices/assets/101754313/fe26e4b7-6eaf-4cb5-87a3-5e4ee72601cc)
 
 
 To test the Circuit Breaker in the API Gateway, make sure that one of the services like Product, Order or Inventory Service is unavailable, and then call the corresponding service.
 You should see an error – Service Unavailable, please try again later with the status HTTP_503
 You can try the same thing also for the Order Service project, by stopping the Inventory Service.
 To test the Timeout and Retry, we can introduce a slight delay by adding something like Thread.sleep() to simulate latency for our requests and you can observe that Circuit Breaker will be activated also in these cases.
+
+#### Schema registry
+O uso de Schema Registry e Avro em uma aplicação Kafka não apenas melhora a eficiência e o desempenho, mas também simplifica a gestão e a evolução dos dados, proporcionando uma base mais robusta e flexível para o desenvolvimento de sistemas distribuídos.
