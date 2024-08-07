@@ -1,5 +1,7 @@
 package com.levi.microservices.client.domain.model;
 
+import com.levi.microservices.client.api.dto.AddressDTO;
+import com.levi.microservices.client.api.dto.IndividualClientDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +11,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
-import java.time.LocalDate;
+import java.util.Objects;
+import java.util.Optional;
 
 @Data
 @Entity
@@ -34,9 +37,6 @@ public class IndividualClient {
     @Column(name = "mothers_name", nullable = false)
     private String mothersName;
 
-    @Column(name = "birthdate", nullable = false)
-    private LocalDate birthdate;
-
     @Column(name = "is_deleted", nullable = false)
     private Boolean isDeleted;
 
@@ -56,8 +56,37 @@ public class IndividualClient {
         this.name = other.name;
         this.document = other.document;
         this.mothersName = other.mothersName;
-        this.birthdate = other.birthdate;
         this.isDeleted = other.isDeleted;
         this.address = other.address;
+    }
+
+    public static Optional<IndividualClientDTO> from(IndividualClient individualClient) {
+        if (Objects.isNull(individualClient))
+            return Optional.empty();
+
+        AddressDTO addressDTO = Address.from(individualClient.getAddress())
+                .orElse(null);
+
+        return Optional.of(new IndividualClientDTO(individualClient.name, individualClient.document,
+                individualClient.mothersName, addressDTO));
+    }
+
+    public static IndividualClient toEntity(IndividualClientDTO dto) {
+        final var addressBuilder = Address.builder()
+                .state(dto.addressDTO().state())
+                .city(dto.addressDTO().city())
+                .street(dto.addressDTO().street())
+                .number(dto.addressDTO().number())              // I might consider using mapstruct //
+                .complement(dto.addressDTO().complement())
+                .neighborhood(dto.addressDTO().neighborhood())
+                .zipCode(dto.addressDTO().zipCode())
+                .build();
+
+        return IndividualClient.builder()
+                .name(dto.name())
+                .document(dto.document())
+                .mothersName(dto.mothersName())
+                .address(addressBuilder)
+                .build();
     }
 }
