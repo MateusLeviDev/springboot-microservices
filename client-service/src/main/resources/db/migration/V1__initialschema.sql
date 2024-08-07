@@ -20,7 +20,6 @@ CREATE TABLE IF NOT EXISTS individual_client(
   name VARCHAR(255) NOT NULL,
   document VARCHAR(100) NOT NULL,
   mothers_name VARCHAR(255) NOT NULL,
-  birthdate DATE NOT NULL,
   is_deleted BOOLEAN NOT NULL,
   address_id BIGINT NOT NULL,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
