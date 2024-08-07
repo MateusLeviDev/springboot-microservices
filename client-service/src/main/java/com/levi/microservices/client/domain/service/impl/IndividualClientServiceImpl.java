@@ -1,6 +1,9 @@
 package com.levi.microservices.client.domain.service.impl;
 
+import com.levi.microservices.client.api.dto.IndividualClientDTO;
+import com.levi.microservices.client.domain.model.Address;
 import com.levi.microservices.client.domain.model.IndividualClient;
+import com.levi.microservices.client.domain.repository.AddressRepository;
 import com.levi.microservices.client.domain.repository.IndividualClientRepository;
 import com.levi.microservices.client.domain.service.IndividualClientService;
 import jakarta.persistence.EntityNotFoundException;
@@ -17,27 +20,34 @@ public class IndividualClientServiceImpl implements IndividualClientService {
 
     private static final String UNABLE_TO_FIND_OBJECT = "Unable to find object with %s %s";
     private final IndividualClientRepository individualClientRepository;
+    private final AddressRepository addressRepository;
 
     @Override
-    public IndividualClient save(IndividualClient individualClient) {
+    public Optional<IndividualClientDTO> save(IndividualClient individualClient) {
         final var byDocument = individualClientRepository.findByDocument(individualClient.getDocument());
 
         if (byDocument.isPresent()) {
             final var individualClientSaved = byDocument.get();
+            final var address = byDocument.get().getAddress();
             log.info("Updating existing client with document: {}", individualClientSaved.getDocument());
             individualClientSaved.updateModel(individualClient);
-            return individualClientRepository.save(individualClientSaved);
+            addressRepository.save(address);
+            individualClientRepository.save(individualClientSaved);
         } else {
             log.info("Creating new client with document: {}", individualClient.getDocument());
+            final var address = individualClient.getAddress();
             individualClient.setIsDeleted(false);
-            return individualClientRepository.save(individualClient);
+            addressRepository.save(address);
+            individualClientRepository.save(individualClient);
         }
+        return IndividualClient.from(individualClient);
     }
 
     @Override
-    public IndividualClient update(IndividualClient individualClient) {
-        final IndividualClient referenceById = individualClientRepository.getReferenceById(individualClient.getId());
+    public IndividualClient update(Long id, IndividualClient individualClient) {
+        final IndividualClient referenceById = individualClientRepository.getReferenceById(id);
         log.info("Updating individual client: {} to {}", referenceById, individualClient);
+
 
         referenceById.updateModel(individualClient);
 
