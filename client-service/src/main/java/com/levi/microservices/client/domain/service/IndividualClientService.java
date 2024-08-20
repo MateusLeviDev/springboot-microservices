@@ -7,14 +7,6 @@ import java.util.Optional;
 
 public interface IndividualClientService {
 
-    Optional<IndividualClientDTO> save(IndividualClient individualClient);
-
-    IndividualClient update(Long id, IndividualClient individualClient);
-
-    IndividualClient findById(Long id);
-
-    Optional<IndividualClient> findByDocument(String document);
-
-    void deleteById(Long id);
+    IndividualClient save(IndividualClient individualClient);
 
 }

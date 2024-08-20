@@ -1,6 +1,5 @@
 package com.levi.microservices.client.domain.model;
 
-import com.levi.microservices.client.api.dto.AddressDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,8 +9,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
-import java.util.Objects;
-import java.util.Optional;
 
 @Data
 @Entity
@@ -63,21 +60,6 @@ public class Address {
         this.city = other.city;
         this.state = other.state;
         this.zipCode = other.zipCode;
-    }
-
-    public static Optional<AddressDTO> from(Address address) {
-        if (Objects.isNull(address))
-            return Optional.empty();
-
-        return Optional.of(new AddressDTO(
-                address.street,
-                address.number,
-                address.complement,
-                address.neighborhood,
-                address.city,
-                address.state,
-                address.zipCode
-        ));
     }
 
 }
