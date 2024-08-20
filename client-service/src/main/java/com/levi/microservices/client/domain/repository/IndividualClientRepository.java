@@ -9,8 +9,4 @@ public interface IndividualClientRepository extends JpaRepository<IndividualClie
 
     Optional<IndividualClient> findByDocument(String document);
 
-    Optional<IndividualClient> findByDocumentAndIsDeleted(String document, boolean isDeleted);
-
-    Optional<IndividualClient> findByIdAndIsDeleted(Long id, boolean isDeleted);
-
 }

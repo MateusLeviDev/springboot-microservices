@@ -4,6 +4,6 @@ public record IndividualClientDTO(
         String name,
         String document,
         String mothersName,
-        AddressDTO addressDTO
+        AddressDTO address
 ) {
 }
