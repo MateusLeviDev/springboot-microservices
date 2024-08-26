@@ -9,4 +9,6 @@ public interface IndividualClientService {
 
     IndividualClient save(IndividualClient individualClient);
 
+    IndividualClient findById(Long id);
+
 }
