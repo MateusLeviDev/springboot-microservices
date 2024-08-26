@@ -22,11 +22,22 @@ public class IndividualClientController {
 
     @PostMapping
     public ResponseEntity<IndividualClientDTO> save(@RequestBody @Valid final IndividualClientDTO dto) {
+        log.info("Started to save client with request: [{}]", dto);
         final var model = individualClientMapper.toModel(dto);
         final var save = service.save(model);
+
         final var response = individualClientMapper.toDTO(save);
 
+        log.info("Saved successfully");
         return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<IndividualClientDTO> findById(@PathVariable final Long id) {
+        log.info("Finding customer id: {}", id);
+        final var individualClient = service.findById(id);
+
+        return ResponseEntity.ok(individualClientMapper.toDTO(individualClient));
     }
 
 
